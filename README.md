@@ -47,7 +47,7 @@ Cloud
   - Database show on dashboard
 - V 0.02
   - Autofetch from database (xmlhttprequest)
-  - Simple logic for detection
+  - Simple "self-aware" logic for patient status detection
   - Sweetalert2
 
 # Next Goal
