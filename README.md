@@ -49,3 +49,7 @@ Cloud
   - Autofetch from database (xmlhttprequest)
   - Simple logic for detection
   - Sweetalert2
+
+# Next Goal
+- Configuring how to raspicamera to stream via http5/js
+- Combine sensor reading data into chart
