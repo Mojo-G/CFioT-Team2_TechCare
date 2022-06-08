@@ -93,12 +93,18 @@ else{
 													else if($oxygen < 95){
 														echo "Low Oxygen Level";
                                                     }
-                                                    else if($heartrate >= 90 && 130 <= $heartrate){
-                                                    echo "Unstable Heart Rate";
+                                                    else if($heartrate > 130 ){
+                                                    echo "High Heart Rate";
                                                     }
-													else if($temperature >= 37 && 36 <= $heartrate){
-                                                    echo "Unstable Temperature";
+                                                    else if($heartrate < 90 ){
+                                                    echo "Low Heart Rate";
                                                     }
+													else if($temperature > 40){
+                                                    echo "High Temperature";
+                                                    }
+													else if($temperature < 36){
+                                                    echo "Low Temperature";
+                                                    }                                                    
 													
                                             else{
                                             echo "Patient OK";
