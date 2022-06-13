@@ -15,6 +15,7 @@ include_once ('dbconfig.php');
 	$heartrate = $row["heartrate"];
 	$oxygen = $row["oxygen"];
 	$temperature = $row["temp"];
+	$step = $row["step"];
  }
 else{
 	echo "data error";
@@ -72,21 +73,14 @@ else{
         
         
         
-        
-        
-        <div class="col-xl-5 ms-auto mt-xl-0 mt-4">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body p-3">
-                            <div class="row">
-                                <div class="col-8 my-auto">
-                                    <div class="numbers">
-                                        <p class="text-sm mb-0 text-capitalize font-weight-bold opacity-7">Patient Overall Condition</p>
-                                        <h2 class="text-gradient text-primary">
-                                        
-                                        
-                                        <?php								
+    
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card">                            
+
+                        <div class="card-body text-center">
+                            <h1 class="text-gradient text-primary"><span id="status1">
+                                <?php								
                                                 if($position == 0){
                                                 echo "Patient Fall";
                                                 }
@@ -110,18 +104,24 @@ else{
                                             echo "Patient OK";
 											}											
                                         ?>
-
-
-                                
-                                        </h5>
-                                    </div>
-                                </div>
-                                
-                            </div>
+                                </span> <span class="text-lg ms-n2"></span></h1>
+                            <h6 class="mb-0 font-weight-bolder">Patient</h6>
+                            <p class="opacity-8 mb-0 text-sm">Overal Status</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mt-md-0 mt-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h1 class="text-gradient text-primary"> <span id="status2"><?php echo  $oxygen;?></span> <span class="text-lg ms-n1">BPM</span></h1>
+                            <h6 class="mb-0 font-weight-bolder">Oxygen</h6>
+                            <p class="opacity-8 mb-0 text-sm">Level</p>
                         </div>
                     </div>
                 </div>
             </div>
+            
             
             
             
@@ -138,6 +138,7 @@ else{
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-md-6 mt-md-0 mt-4">
                     <div class="card">
                         <div class="card-body text-center">
@@ -152,9 +153,9 @@ else{
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body text-center">
-                            <h1 class="text-gradient text-primary"><span id="status3"><?php echo $oxygen; ?></span> <span class="text-lg ms-n2">%</span></h1>
-                            <h6 class="mb-0 font-weight-bolder">Oxygen</h6>
-                            <p class="opacity-8 mb-0 text-sm">Level</p>
+                            <h1 class="text-gradient text-primary"><span id="status3"><?php echo $step; ?></span> <span class="text-lg ms-n2"></span></h1>
+                            <h6 class="mb-0 font-weight-bolder">Total</h6>
+                            <p class="opacity-8 mb-0 text-sm">Step</p>
                         </div>
                     </div>
                 </div>
@@ -167,7 +168,7 @@ else{
                             <h1 class="text-gradient text-primary"><span id="status4">
                                 <?php 
                                 if($position == 1){
-                                    echo "Ok";
+                                    echo "OK";
                                 }
                                 else if ($position == 0){
                                     echo "Patient Fall";
