@@ -1,12 +1,12 @@
 # CFioT-Team2_TechCare
-Tech Care IoT Fog x Cloud Project
+# Tech Care IoT Fog x Cloud Project
+____________________________________
+# 100 Percentage Use of Computers
 
-CFIoT Class - Team 2
 
-- 100 Percentage Use of Computers
 In our architecture, we used cloud, fog, and edge computing, and each calculation was dispersed evenly across each tier. This makes our system more sophisticated and efficient.
 
-- 2 devices and 1 software for total inpatient care
+#2 devices and 1 software for total inpatient care
 We will provide you with two devices, a camera and a smartwatch. Within these two devices and supported by universal software, your inpatient will be significantly safer.
 
 May update overtime
