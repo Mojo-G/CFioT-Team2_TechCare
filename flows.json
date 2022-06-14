@@ -1,0 +1,798 @@
+[
+    {
+        "id": "19b4b2f4d7ca0a2f",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0096a350edb88d47",
+        "type": "mqtt-broker",
+        "name": "MojoVMware",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "462a81b9c45fe68d",
+        "type": "MySQLdatabase",
+        "name": "Mojo DB",
+        "host": "localhost",
+        "port": "3306",
+        "db": "dashboard_main",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "76ab17232e74cd4d",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "192.168.80.9",
+        "port": "3306",
+        "db": "cv",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "2d4a38275980724c",
+        "type": "MySQLdatabase",
+        "name": "Cloud",
+        "host": "68.183.181.162",
+        "port": "3306",
+        "db": "dashboard_main",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "65e972949afb8f6c",
+        "type": "telegram bot",
+        "botname": "TechcareTelegram_bot",
+        "usernames": "",
+        "chatids": "1097245151",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
+        "id": "85256d99c9c56c30",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "62302ef9247812b0",
+        "type": "function",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "func": "msg.topic = \"select * from detection ORDER BY `detection`.`id` DESC LIMIT 1 \"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 440,
+        "wires": [
+            [
+                "2dd242d5af07208a"
+            ]
+        ]
+    },
+    {
+        "id": "ad6934c27035717d",
+        "type": "debug",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "d80a0f8763994fbf",
+        "type": "inject",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 70,
+        "y": 440,
+        "wires": [
+            [
+                "62302ef9247812b0"
+            ]
+        ]
+    },
+    {
+        "id": "bda5c48d4dac6c58",
+        "type": "function",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "func": "msg.topic = \"INSERT INTO `detection` (`x`, `y`, `z`, `status`) VALUES ('\"+msg.payload[0].x+\"' , '\"+msg.payload[0].y+\"', '\"+msg.payload[0].z+\"', '\"+msg.payload[0].status+\"')\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 340,
+        "wires": [
+            [
+                "f1159798cf391359"
+            ]
+        ]
+    },
+    {
+        "id": "f1159798cf391359",
+        "type": "mysql",
+        "z": "19b4b2f4d7ca0a2f",
+        "mydb": "2d4a38275980724c",
+        "name": "Cloud",
+        "x": 870,
+        "y": 340,
+        "wires": [
+            [
+                "ad6934c27035717d"
+            ]
+        ]
+    },
+    {
+        "id": "06964a0685e8d0a7",
+        "type": "mysql",
+        "z": "19b4b2f4d7ca0a2f",
+        "mydb": "462a81b9c45fe68d",
+        "name": "",
+        "x": 880,
+        "y": 240,
+        "wires": [
+            [
+                "ad6934c27035717d"
+            ]
+        ]
+    },
+    {
+        "id": "2dd242d5af07208a",
+        "type": "mysql",
+        "z": "19b4b2f4d7ca0a2f",
+        "mydb": "76ab17232e74cd4d",
+        "name": "",
+        "x": 390,
+        "y": 440,
+        "wires": [
+            [
+                "bda5c48d4dac6c58",
+                "bf6f4b2e179791fa",
+                "5b5e02e84a46c85c"
+            ]
+        ]
+    },
+    {
+        "id": "f1cd11a062a540c3",
+        "type": "function",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "func": "var content = msg.payload\nmsg.payload = {\"type\":\"message\",\n\"chatId\": 1097245151,\n\"content\": content}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 440,
+        "wires": [
+            [
+                "711db5b2c16247a7"
+            ]
+        ]
+    },
+    {
+        "id": "7ecffe141c247384",
+        "type": "change",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Patient Falling",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 440,
+        "wires": [
+            [
+                "f1cd11a062a540c3"
+            ]
+        ]
+    },
+    {
+        "id": "bf6f4b2e179791fa",
+        "type": "switch",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "property": "payload[0].status",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 610,
+        "y": 440,
+        "wires": [
+            [
+                "7ecffe141c247384"
+            ]
+        ]
+    },
+    {
+        "id": "e7a9ce437c10c896",
+        "type": "debug",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1330,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "711db5b2c16247a7",
+        "type": "telegram sender",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "TechCareBot",
+        "bot": "65e972949afb8f6c",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1150,
+        "y": 440,
+        "wires": [
+            [
+                "e7a9ce437c10c896"
+            ]
+        ]
+    },
+    {
+        "id": "f66a6f18037d441d",
+        "type": "mqtt in",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "topic": "Temp",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "85256d99c9c56c30",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 90,
+        "y": 60,
+        "wires": [
+            [
+                "71aafd6bdb55cb91",
+                "a5f440691aef7d17"
+            ]
+        ]
+    },
+    {
+        "id": "3ef8ef0c46a93e22",
+        "type": "mqtt in",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "topic": "Step",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "85256d99c9c56c30",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 90,
+        "y": 120,
+        "wires": [
+            [
+                "71aafd6bdb55cb91"
+            ]
+        ]
+    },
+    {
+        "id": "71aafd6bdb55cb91",
+        "type": "join",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "",
+        "count": "4",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 410,
+        "y": 100,
+        "wires": [
+            [
+                "45b552c102dbada9"
+            ]
+        ]
+    },
+    {
+        "id": "45b552c102dbada9",
+        "type": "function",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "func": "msg.topic = \"INSERT INTO `smartwatch_sensor` (`temp`, `heartrate`, `oxygen`, `step`) VALUES ('\"+msg.payload.Temp+\"' , '\"+msg.payload.Heartrate+\"', '\"+msg.payload.Oxygen+\"', '\"+msg.payload.Step+\"')\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 100,
+        "wires": [
+            [
+                "06964a0685e8d0a7",
+                "f1159798cf391359",
+                "cc9896fc1ca4b8b7"
+            ]
+        ]
+    },
+    {
+        "id": "d7c0e9f44ead5299",
+        "type": "mqtt in",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "topic": "Heartrate",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "85256d99c9c56c30",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 180,
+        "wires": [
+            [
+                "71aafd6bdb55cb91",
+                "982f3d73d04fb9bc"
+            ]
+        ]
+    },
+    {
+        "id": "1ba8d1d3b33a22d0",
+        "type": "mqtt in",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "topic": "Oxygen",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "85256d99c9c56c30",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 90,
+        "y": 240,
+        "wires": [
+            [
+                "71aafd6bdb55cb91",
+                "8120cc6f29b58670"
+            ]
+        ]
+    },
+    {
+        "id": "cc9896fc1ca4b8b7",
+        "type": "debug",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "1331821e76cd5fd8",
+        "type": "switch",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "< 32 || >40",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "32",
+                "vt": "num"
+            },
+            {
+                "t": "lt",
+                "v": "40",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 370,
+        "y": 640,
+        "wires": [
+            [
+                "f6f3a596a4787e47"
+            ],
+            [
+                "ccf38940267f174f"
+            ]
+        ]
+    },
+    {
+        "id": "a5f440691aef7d17",
+        "type": "function",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "func": "msg.payload = Number(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 200,
+        "y": 640,
+        "wires": [
+            [
+                "1331821e76cd5fd8"
+            ]
+        ]
+    },
+    {
+        "id": "f6f3a596a4787e47",
+        "type": "change",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Patient High Temperature",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 600,
+        "wires": [
+            [
+                "f1cd11a062a540c3"
+            ]
+        ]
+    },
+    {
+        "id": "ccf38940267f174f",
+        "type": "change",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Patient Low Temperature",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 660,
+        "wires": [
+            [
+                "f1cd11a062a540c3"
+            ]
+        ]
+    },
+    {
+        "id": "982f3d73d04fb9bc",
+        "type": "function",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "func": "msg.payload = Number(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 700,
+        "wires": [
+            [
+                "d6d8d21217dae7fb"
+            ]
+        ]
+    },
+    {
+        "id": "d6d8d21217dae7fb",
+        "type": "switch",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "> 120 || <80",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "120",
+                "vt": "num"
+            },
+            {
+                "t": "lt",
+                "v": "80",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 370,
+        "y": 700,
+        "wires": [
+            [
+                "c9b0f130bad3ecb4"
+            ],
+            [
+                "d53d69567aaf6e15"
+            ]
+        ]
+    },
+    {
+        "id": "c9b0f130bad3ecb4",
+        "type": "change",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Patient High Heartrate",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 720,
+        "wires": [
+            [
+                "f1cd11a062a540c3"
+            ]
+        ]
+    },
+    {
+        "id": "d53d69567aaf6e15",
+        "type": "change",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Patient Low Heartrate",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 780,
+        "wires": [
+            [
+                "f1cd11a062a540c3"
+            ]
+        ]
+    },
+    {
+        "id": "8120cc6f29b58670",
+        "type": "function",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "func": "msg.payload = Number(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 820,
+        "wires": [
+            [
+                "cbc5c6be5a3100dd"
+            ]
+        ]
+    },
+    {
+        "id": "cbc5c6be5a3100dd",
+        "type": "switch",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "< 95",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "95",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 350,
+        "y": 820,
+        "wires": [
+            [
+                "26303023b75922f4"
+            ]
+        ]
+    },
+    {
+        "id": "26303023b75922f4",
+        "type": "change",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Patient High Heartrate",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 840,
+        "wires": [
+            [
+                "f1cd11a062a540c3"
+            ]
+        ]
+    },
+    {
+        "id": "5b5e02e84a46c85c",
+        "type": "debug",
+        "z": "19b4b2f4d7ca0a2f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 430,
+        "y": 300,
+        "wires": []
+    }
+]
