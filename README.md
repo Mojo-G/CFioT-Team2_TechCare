@@ -43,6 +43,14 @@ Cloud
 2. Install LAMP Stack (https://github.com/teddysun/lamp)
 3. After LAMP Installation, extract this source code to home page
 
+
+- Fog Installation
+1. Install Node-js first (https://nodejs.dev/learn/how-to-install-nodejs)
+2. Install Node-red (https://nodered.org/docs/getting-started/local)
+3. Install MQTT Broker (https://mosquitto.org/)
+4. Import code from this source code for node-red
+5. and change arduino code according your MQTT broker adress
+
 # Changelog
 - V 0.01
   - Darkmode
